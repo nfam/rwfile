@@ -9,11 +9,12 @@ type File struct {
 	*os.File
 }
 
-func (f File) Close() {
+func (f File) Close() error {
 	if f.File != nil {
 		unlock(f.File)
-		f.File.Close()
+		return f.File.Close()
 	}
+	return nil
 }
 
 func OpenRead(name string) (File, error) {
